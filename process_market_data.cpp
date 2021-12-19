@@ -45,6 +45,11 @@ void process_market_data_entry(char const *data, int begin, int end) {
     }
     elements.push_back(data_element_to_string(data, start_element, end));
 
+    if (elements.size() != 5) {
+        cerr << "ERROR: " + elements[0] + " has invalid number of data elements: " << elements.size() << '\n';
+        throw invalid_data;
+    }
+
     MarketDataEntry entry = MarketDataEntry(
         to_double(elements[1]),
         to_double(elements[2]),
